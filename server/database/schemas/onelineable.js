@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var onelinerableSchema = new Schema({
   subject: String,
+  oneline: String,
   author: String,
   upvotes: { type: Number, default: 0 }
 });
