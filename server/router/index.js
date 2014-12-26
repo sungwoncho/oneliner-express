@@ -1,3 +1,3 @@
 module.exports = function(app) {
-  app.use('/', require('./routes/index'));
+  app.use('/onelineable', require('./routes/onelineable'));
 }
