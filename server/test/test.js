@@ -1,7 +1,7 @@
 var request = require('supertest');
 var app = require('../app');
 var db = require('../database');
-var Onelineable = db.onelineable;
+var onelines = db.onelines;
 var expect = require('chai').expect;
 
 var mongoose = require('mongoose');
@@ -11,7 +11,7 @@ mongoose.modelSchemas = {};
 
 before(function() {
   // Flush the test database
-  Onelineable.remove({}, function(err) {
+  onelines.remove({}, function(err) {
     console.log('collection removed');               
   });
 });
@@ -21,34 +21,34 @@ after(function() {
   mongoose.connection.close();
 })
 
-describe('listing onelineables on /onelineable', function() {
+describe('listing oneliness on /onelines', function() {
   it('Returns a 200 status code', function(done) {
     request(app)
-      .get('/onelineable')
+      .get('/onelines')
       .expect(200, done)
   });
 
   it('Returns JSON format', function(done) {
     request(app)
-      .get('/onelineable')
+      .get('/onelines')
       .expect('Content-Type', /json/, done);
   });
 
-  it('Returns all onelineable objects', function(done) {
-    var onelineable1 = new Onelineable({
+  it('Returns all onelines objects', function(done) {
+    var onelines1 = new onelines({
       subject: 'Sydney',
       author: 'user1'
     });
-    var onelineable2 = new Onelineable({
+    var onelines2 = new onelines({
       subject: 'Airport',
       author: 'user2'
     });
 
-    onelineable1.save();
-    onelineable2.save();
+    onelines1.save();
+    onelines2.save();
 
     request(app)
-      .get('/onelineable')
+      .get('/onelines')
       .end(function(err, res) {
         expect(res.body.length).to.eq(2);
         done();
@@ -56,26 +56,26 @@ describe('listing onelineables on /onelineable', function() {
   });
 });
 
-describe('Creating onelineable', function() {
+describe('Creating onelines', function() {
   it('Returns a 201 status code', function(done) {
     request(app)
-      .post('/onelineable')
+      .post('/onelines')
       .send('subject=Banana&oneline=a+delicious+food')
       .expect(201, done);
   });
 
-  it('Returns the new onelineable subject', function(done) {
+  it('Returns the new onelines subject', function(done) {
     request(app)
-      .post('/onelineable')
+      .post('/onelines')
       .send('subject=Banana&oneline=a+delicious+food')
       .expect(/banana/i, done);
   });
 });
 
-describe('Deleting onelineable', function() {
+describe('Deleting onelines', function() {
   
   before(function() {
-    var banana = new Onelineable({
+    var banana = new onelines({
       subject: 'Banana',
       author: 'user2'
     });
@@ -85,19 +85,19 @@ describe('Deleting onelineable', function() {
   it('Returns 204 status code', function(done) {
     var bananaId;
 
-    Onelineable.findOne({subject: 'Banana'}, function(err, data) {
+    onelines.findOne({subject: 'Banana'}, function(err, data) {
       bananaId = data._id;                                  
 
       request(app)
-        .delete('/onelineable/' + bananaId)
+        .delete('/onelines/' + bananaId)
         .expect(204, done);
     });    
   });
 });
 
-describe('Showing onelineable', function() {
+describe('Showing onelines', function() {
   before(function() {
-    var banana = new Onelineable({
+    var banana = new onelines({
       subject: 'Banana',
       author: 'user2'
     });
@@ -106,11 +106,11 @@ describe('Showing onelineable', function() {
 
   it('Returns 200 status code', function(done) {
  
-    Onelineable.findOne({subject: 'Banana'}, function(err, data) {
+    onelines.findOne({subject: 'Banana'}, function(err, data) {
       bananaId = data._id;                                  
 
       request(app)
-        .get('/onelineable/' + bananaId)
+        .get('/onelines/' + bananaId)
         .expect(200, done);
     });    
     
@@ -118,11 +118,11 @@ describe('Showing onelineable', function() {
 
   it('Returns information for the requested oneline', function(done) {
     
-    Onelineable.findOne({subject: 'Banana'}, function(err, data) {
+    onelines.findOne({subject: 'Banana'}, function(err, data) {
       bananaId = data._id;                                  
 
       request(app)
-        .get('/onelineable/' + bananaId)
+        .get('/onelines/' + bananaId)
         .expect(/Banana/, done);
     });    
   });

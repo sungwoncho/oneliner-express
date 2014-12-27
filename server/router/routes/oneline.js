@@ -5,18 +5,18 @@ var urlencode = bodyParser.urlencoded({ extended: false });
 
 // Load database
 var db = require('../../database');
-var Onelineable = db.onelineable;
+var Oneline = db.onelines;
 
 router.route('/')
   .get(function(req, res) {
     // Find all and return json
-    Onelineable.find({}, function(err, data) {
+    Oneline.find({}, function(err, data) {
       res.json(data);                  
     });
   })
   .post(urlencode, function(req, res) {
-    var newOnelineable = new Onelineable(req.body);
-    newOnelineable.save(function(err, saved, numberAffected) {
+    var newOneline = new Oneline(req.body);
+    newOneline.save(function(err, saved, numberAffected) {
       if (err) {
         console.log('problem saving the onelineable');
         res.status(500).json({'message': 'db error'});
@@ -24,13 +24,13 @@ router.route('/')
       }
   
       // Return the subject of new onelineable
-      res.status(201).json(newOnelineable.subject);
+      res.status(201).json(newOneline.subject);
     });
   });
 
 router.route('/:_id')
   .delete(function(req, res) {
-    Onelineable.findById(req.params._id, function(err, found) {
+    Oneline.findById(req.params._id, function(err, found) {
       if (typeof(found) === 'undefined') {
         return;
       }
@@ -39,7 +39,7 @@ router.route('/:_id')
     });
   })
   .get(function(req, res) {
-    Onelineable.findById(req.params._id, function(err, found) {
+    Oneline.findById(req.params._id, function(err, found) {
       if (typeof(found) === 'undefined') {
         return;
       }

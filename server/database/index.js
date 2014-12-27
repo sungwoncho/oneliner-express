@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var OnelineableModel = require('./schemas/onelineable');
+var OnelinesModel = require('./schemas/oneline');
 
 // Connections
 var testDb = 'mongodb://localhost/test';
@@ -32,4 +32,4 @@ db.once('open', function callback() {
   console.log('Database connection succesfully opened at ' + usedDb);
 });
 
-exports.onelineable = OnelineableModel;
+exports.onelines = OnelinesModel;

@@ -1,3 +1,3 @@
 module.exports = function(app) {
-  app.use('/onelineable', require('./routes/onelineable'));
+  app.use('/onelines', require('./routes/oneline'));
 }
