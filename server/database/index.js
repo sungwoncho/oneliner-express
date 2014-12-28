@@ -4,7 +4,7 @@ var OnelinesModel = require('./schemas/oneline');
 // Connections
 var testDb = 'mongodb://localhost/test';
 var developmentDb = 'mongodb://localhost/development';
-var productionDb = '';
+var productionDb = 'mongodb://heroku_app32879642:d65uagnm879gu9cn63vosm4sk4@ds049170.mongolab.com:49170/heroku_app32879642';
 var usedDb;
 
 // When in development
