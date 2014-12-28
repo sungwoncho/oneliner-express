@@ -1,5 +1,7 @@
 <div ng-repeat="oneline in onelines">
   <h3>{{ oneline.subject }}</h3>
+  <p>{{ oneline.oneline  }}</p>
+  <a ng-click="deleteOneline(oneline._id)">Delete</a>
 </div>
 
 <form ng-submit="addOneline()">

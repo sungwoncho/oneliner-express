@@ -21,12 +21,9 @@ angular.module('clientApp')
       $scope.oneline = '';
     };
 
+    $scope.deleteOneline = function(id) {
+      onelines.delete(id);
+    };
 
-  //  $scope.addOneline = function() {
-  //    var oneline = {
-  //      subject: $scope.subject,
-  //      oneline: $scope.oneline
-  //    };
-  //    $http.post('/onelineable', oneline);
-  //  };
+
   }]);

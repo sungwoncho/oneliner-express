@@ -27,5 +27,13 @@ angular.module('clientApp')
       });
     };
 
+    o.delete = function(id) {
+      $http.delete('/onelines/' + id)
+        .success(function(){
+          // Update the onelines list
+          o.getAll();
+        });
+    };
+
     return o;
   }]);
