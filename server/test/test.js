@@ -64,7 +64,7 @@ describe('Creating onelines', function() {
       .expect(201, done);
   });
 
-  it('Returns the new onelines subject', function(done) {
+  it('Returns the new oneline', function(done) {
     request(app)
       .post('/onelines')
       .send('subject=Banana&oneline=a+delicious+food')
@@ -91,6 +91,20 @@ describe('Deleting onelines', function() {
       request(app)
         .delete('/onelines/' + bananaId)
         .expect(204, done);
+    });    
+  });
+
+  it('Removes the oneline', function(done) {
+    
+    var bananaId;
+
+    onelines.findOne({subject: 'Banana'}, function(err, data) {
+      bananaId = data._id;                                  
+
+      request(app)
+        .delete('/onelines/' + bananaId)
+        .end(done);
+      //Todo   
     });    
   });
 });
@@ -120,10 +134,15 @@ describe('Showing onelines', function() {
     
     onelines.findOne({subject: 'Banana'}, function(err, data) {
       bananaId = data._id;                                  
-
       request(app)
         .get('/onelines/' + bananaId)
         .expect(/Banana/, done);
     });    
+  });
+
+  it('Returns 204 status code if not found', function(done) {
+    request(app)
+      .get('/onelines/' + '549e2b919eb623156639c999')
+      .expect(204, done);
   });
 });

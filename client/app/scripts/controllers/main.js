@@ -8,10 +8,25 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('MainCtrl', ['$scope', 'onelines', function ($scope, onelines) {
+    $scope.onelines = onelines.onelines;
+
+    $scope.addOneline = function() {
+      onelines.create({
+        subject: $scope.subject,
+        oneline: $scope.oneline
+      });
+
+      $scope.subject = '';
+      $scope.oneline = '';
+    };
+
+
+  //  $scope.addOneline = function() {
+  //    var oneline = {
+  //      subject: $scope.subject,
+  //      oneline: $scope.oneline
+  //    };
+  //    $http.post('/onelineable', oneline);
+  //  };
+  }]);

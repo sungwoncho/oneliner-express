@@ -7,10 +7,26 @@ var urlencode = bodyParser.urlencoded({ extended: false });
 var db = require('../../database');
 var Oneline = db.onelines;
 
+router.param('oneline', function(req, res, next, id) {
+  var query = Oneline.findById(id);
+
+  query.exec(function(err, oneline) { 
+    if (err) { return next(err); }
+    //if (!oneline) { return next(new Error("Can't find oneline with id " + id)); }
+
+    req.oneline = oneline;
+    return next();
+  });
+});
+
 router.route('/')
   .get(function(req, res) {
     // Find all and return json
     Oneline.find({}, function(err, data) {
+      if (!data) {
+        res.status(204).json("Not found");
+        return;
+      }
       res.json(data);                  
     });
   })
@@ -24,27 +40,21 @@ router.route('/')
       }
   
       // Return the subject of new onelineable
-      res.status(201).json(newOneline.subject);
+      res.status(201).json(newOneline);
     });
   });
 
-router.route('/:_id')
+router.route('/:oneline')
   .delete(function(req, res) {
-    Oneline.findById(req.params._id, function(err, found) {
-      if (typeof(found) === 'undefined') {
-        return;
-      }
-      found.remove();
-      res.sendStatus(204);
-    });
+    Oneline.find(req.oneline).remove().exec();
+    res.sendStatus(204);
   })
   .get(function(req, res) {
-    Oneline.findById(req.params._id, function(err, found) {
-      if (typeof(found) === 'undefined') {
-        return;
-      }
-      res.status(200).json(found);
-    });
+    if (!req.oneline) {
+      res.sendStatus(204);
+      return;
+    }
+    res.status(200).json(req.oneline);
   });
 
 module.exports = router;
