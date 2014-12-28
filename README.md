@@ -1,16 +1,15 @@
-oneliner-express
-================
+# Oneliner-express
 
 Describe anything in one line.
 A proof of concept built with Express, and AngularJS.
 
-### Client
+## Client
 
 Built with AngularJs. 
 
 Use `grunt build` to minify and compile the project into `server/dist`.
 
-### Server
+## Server
 
 #### Environments
 
