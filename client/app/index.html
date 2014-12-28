@@ -11,9 +11,11 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main.scss">
     <!-- endbuild -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/bootstrap-united.min.css">
+    <link rel="stylesheet" href="styles/custom.css">
   </head>
   <body ng-app="clientApp">
     <!--[if lt IE 7]>
@@ -21,6 +23,9 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <div header>
+
+    </div>
     <div class="container">
 
       <div ng-view=""></div>
@@ -76,6 +81,7 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/services/onelines.js"></script>
+        <script src="scripts/directives/main.js"></script>
         <!-- endbuild -->
 </body>
 </html>
