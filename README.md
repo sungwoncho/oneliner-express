@@ -32,7 +32,7 @@ When deploying to Heroku, simply use git subtree to deploy the `server` director
 Don't forget to set the environment variable in Heroku.
 `heroku config:set NODE_ENV=production`
 
-### TODO
+## TODO
 
 * Pagination
 * Rails port
