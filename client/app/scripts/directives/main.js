@@ -3,6 +3,6 @@
 angular.module('clientApp').directive('header', function() {
   return {
     restrict: 'A',
-    templateUrl: '../../templates/header.html'
+    templateUrl: '../../views/header.html'
   };
 });
